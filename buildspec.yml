@@ -1,19 +1,10 @@
 version: 0.1
-
 phases:
   install:
     commands:
-      - printenv
       - npm install
+      - npm install -g mocha
+      - npm install -g serverless
   build:
     commands:
-      - npm run build
-  post_build:
-    commands:
-      - mkdir -p build
-      - npm install -g serverless
-   
-artifacts:
-  files:
-    - build*/**
-  discard-paths: yes
+      - serverless deploy --stage cicd | tee deploy.out
